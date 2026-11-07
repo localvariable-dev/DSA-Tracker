@@ -776,3 +776,12 @@ summary:focus-visible {
   .tip-note { border-color: #3b4e72; border-left-color: var(--accent); }
   .day-hero, .panel, .week-detail, .guide-section, .mobile-fold { box-shadow: none; }
 }
+
+@media (max-width: 820px) {
+  .mobile-fold { display: block; padding: 0; }
+  .phase-fold { padding: 0; border: 1px solid var(--line); background: var(--surface); }
+  .phase-fold.is-current { border-left: 3px solid var(--accent); }
+  .mobile-fold.panel { padding: 0; }
+  .mobile-fold-content > section[aria-labelledby="milestones-heading"],
+  .mobile-fold-content > section[aria-labelledby="all-weeks-heading"] { display: grid; gap: 12px; }
+}
