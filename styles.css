@@ -785,3 +785,56 @@ summary:focus-visible {
   .mobile-fold-content > section[aria-labelledby="milestones-heading"],
   .mobile-fold-content > section[aria-labelledby="all-weeks-heading"] { display: grid; gap: 12px; }
 }
+
+
+/* Tracebook signature: ink-black surfaces with an electric, accessible blue. */
+@media (max-width: 820px) {
+  :root {
+    color-scheme: dark;
+    --paper: #080b12;
+    --surface: #101722;
+    --surface-raised: #151f2d;
+    --ink: #f3f6fc;
+    --muted: #b2bfd1;
+    --line: #263449;
+    --line-strong: #50627b;
+    --accent: #78adff;
+    --accent-wash: #142b49;
+    --field: #0c131e;
+  }
+  html, body, .app-shell, .main-content { background: var(--paper); }
+  .mobile-header .brand-mark { border-color: #30415a; background: #101722; }
+  .mobile-edition, .page-meta { border-color: var(--line); background: var(--surface); }
+  .day-hero { border-color: #25354c; border-top-color: var(--accent); background: linear-gradient(145deg, #131d2b, #0d141e 72%); box-shadow: 0 10px 30px rgb(0 0 0 / 24%); }
+  .hero-daymark { background: #142b49; }
+  .hero-daymark strong { color: var(--accent); }
+  .progress-track { background: #29384d; }
+  .progress-fill { background: var(--accent); }
+  .panel, .week-detail, .guide-section, .mobile-fold {
+    border-color: var(--line);
+    background: var(--surface);
+    box-shadow: 0 5px 18px rgb(0 0 0 / 16%);
+  }
+  .proof-stat { border-color: var(--line); background: #111b29; }
+  .proof-stat dd, .week-metric strong { color: var(--ink); }
+  .session-toggle { border-color: var(--line-strong); color: var(--accent); }
+  .session-toggle[aria-checked="true"] { border-color: var(--accent); background: var(--accent); color: #07111f; }
+  .button-primary, .button-primary:hover { border-color: var(--accent); background: var(--accent); color: #07111f; }
+  .button:not(.button-primary):hover { border-color: var(--accent); background: var(--accent-wash); color: var(--ink); }
+  .field input, .field textarea, .field select { border-color: var(--line-strong); background: var(--field); color: var(--ink); }
+  .tip-note { border-color: #253d5f; border-left-color: var(--accent); background: #101f34; }
+  .tip-note .eyebrow, .tip-note p:last-child { color: var(--ink); }
+  .soft-note { border-color: var(--line); background: #0d141f; color: var(--muted); }
+  .mobile-fold > summary::after { color: var(--accent); }
+  .bottom-nav { border-top-color: var(--line); background: #0d141e; box-shadow: 0 -8px 24px rgb(0 0 0 / 30%); }
+  .bottom-nav a[aria-current="page"] { background: #142b49; color: var(--accent); }
+  .phase-fold .day-cell { border-color: var(--line); background: #0d141f; color: var(--ink); }
+  .phase-fold .day-cell.is-selected { border-color: var(--accent); background: var(--accent); color: #07111f; }
+  .phase-fold .day-cell.is-complete:not(.is-selected) { border-color: var(--accent); color: var(--accent); }
+  .week-row[aria-current="true"] { background: var(--accent-wash); color: var(--ink); }
+  .week-table-wrap, .week-table th, .week-table td { border-color: var(--line); }
+  .week-table th { color: var(--muted); }
+  .code-details pre { border-color: var(--line); background: #080b12; color: var(--ink); }
+  .rhythm-cell { background: #0c131e; }
+  .empty-state { border-color: var(--line-strong); }
+}
