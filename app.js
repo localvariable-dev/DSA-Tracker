@@ -791,6 +791,74 @@ while (!q.isEmpty()) {
     }
   }
 
+  function makeMobileFold(element, label, open = false, extraClass = "") {
+    if (!element) return null;
+    const details = document.createElement("details");
+    details.className = `mobile-fold ${extraClass}`.trim();
+    details.open = open;
+    const summary = document.createElement("summary");
+    summary.textContent = label;
+    const content = document.createElement("div");
+    content.className = "mobile-fold-content";
+    while (element.firstChild) content.append(element.firstChild);
+    if (element.hasAttribute("aria-labelledby")) details.setAttribute("aria-labelledby", element.getAttribute("aria-labelledby"));
+    details.append(summary, content);
+    element.replaceWith(details);
+    return details;
+  }
+
+  function compactMobileView(view) {
+    if (!window.matchMedia("(max-width: 820px)").matches) return;
+
+    if (view === "today") {
+      makeMobileFold($("#today-view [aria-labelledby='proof-heading']"), "Log today’s work");
+      const aside = $("#today-view .side-stack");
+      if (aside) {
+        const extra = [...aside.children].filter((element) => !element.matches("[aria-labelledby='totals-heading']"));
+        if (extra.length) {
+          const details = document.createElement("details");
+          details.className = "mobile-fold";
+          const summary = document.createElement("summary");
+          summary.textContent = "Tips, phase & checkpoints";
+          const content = document.createElement("div");
+          content.className = "mobile-fold-content";
+          extra.forEach((element) => content.append(element));
+          details.append(summary, content);
+          aside.append(details);
+        }
+      }
+    }
+
+    if (view === "path") {
+      $("#path-view .phase-block").forEach((phase) => {
+        const range = $(".phase-range", phase)?.textContent || "Phase";
+        const title = $(".phase-title", phase)?.textContent || "Practice phase";
+        const isCurrent = phase.classList.contains("is-current");
+        makeMobileFold(phase, `${range} · ${title}`, isCurrent, "phase-fold");
+      });
+      const milestones = $("#path-view [aria-labelledby='milestones-heading']");
+      makeMobileFold(milestones, "Skill checkpoints");
+    }
+
+    if (view === "guide") {
+      $("#guide-view .guide-section").forEach((section) => {
+        const topic = $(".eyebrow", section)?.textContent || "Field guide";
+        const title = $("h2", section)?.textContent || topic;
+        makeMobileFold(section, `${topic} · ${title}`, false, "guide-fold");
+      });
+    }
+
+    if (view === "weekly") {
+      const weeks = $("#weekly-view .week-list");
+      makeMobileFold(weeks, `Choose a week · Week ${String(state.selectedWeek).padStart(2, "0")}`);
+      makeMobileFold($("#weekly-view #weekly-review-form"), "Weekly reflection");
+      const totals = $("#weekly-view [aria-labelledby='all-weeks-heading']");
+      makeMobileFold(totals, "Practice totals");
+      makeMobileFold($("#weekly-view .cloud-panel"), "Cloud sync & connection");
+      makeMobileFold($("#weekly-view [aria-labelledby='backup-heading']"), "Backup & data");
+    }
+  }
+
   function setActiveView(view, updateHash = false) {
     const validViews = ["today", "path", "guide", "weekly"];
     if (!validViews.includes(view)) view = "today";
@@ -806,6 +874,7 @@ while (!q.isEmpty()) {
     if (view === "path") $("#path-view").innerHTML = renderPath();
     if (view === "guide") $("#guide-view").innerHTML = renderGuide();
     if (view === "weekly") $("#weekly-view").innerHTML = renderWeekly();
+    compactMobileView(view);
     document.body.dataset.view = view;
   }
 
