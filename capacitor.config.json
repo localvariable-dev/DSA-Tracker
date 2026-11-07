@@ -1,0 +1,13 @@
+{
+  "appId": "in.kimick.tracebook",
+  "appName": "Tracebook",
+  "webDir": "dist",
+  "android": {
+    "buildOptions": {
+      "releaseType": "APK"
+    }
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}
