@@ -10,7 +10,7 @@ export default defineConfig({
       PROGRESS: bindings.r2({ name: "dsa-progress" }),
       SYNC_TOKEN: bindings.secret(),
       OTTER_SYNC_TOKEN: bindings.secret(),
-      ALLOWED_ORIGIN: bindings.text("https://localvariable-dev.github.io,https://kimick.in"),
+      ALLOWED_ORIGIN: bindings.text("https://localvariable-dev.github.io,https://kimick.in,https://localhost"),
     },
   },
 });
