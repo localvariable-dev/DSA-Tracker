@@ -51,3 +51,17 @@ The 1300 Codeforces rating is treated as a stretch target. Independent solves, u
 - **Color:** warm paper `#F3F0E8`, ink `#25241F`, muted text `#625E55`, and vermilion `#B33C27`. Body text and controls use a system sans; a restrained serif gives day titles the feel of a field notebook; monospace is limited to code and day numbers.
 - **Motion:** brief checkoff and progress changes only, removed for people who prefer reduced motion.
 - **Responsive structure:** wide screens use a left navigation rail; compact screens stack the content and use a bottom navigation bar.
+
+## Android APK
+
+GitHub Actions builds a Tracebook Android debug APK on pushes to `main` that change the app, and can also be started manually from the Actions tab. The APK is uploaded as the `tracebook-android-debug` artifact for 30 days. Download the artifact ZIP from the workflow run and extract `app-debug.apk` to install it on Android. This workflow only builds an APK artifact; it does not replace the GitHub Pages site deployment.
+
+To keep Android R2 sync working, the Worker CORS list includes Capacitor's `https://localhost` app origin. After pulling the latest repository changes, redeploy the Worker with the existing secret file:
+
+```sh
+cd sync-worker
+npm install
+cf deploy --secrets-file .secrets.json
+```
+
+The APK built here is a debug build for direct installation. A Play Store release needs a signed release build and signing credentials.
