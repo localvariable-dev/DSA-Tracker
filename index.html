@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3f0e8" />
+    <meta name="description" content="A personal 90-day Java and Codeforces practice log, built around independent problem solving." />
+    <title>Tracebook - 90 days of practice</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="side-rail" aria-label="Tracebook navigation">
+        <a class="brand" href="#today" aria-label="Tracebook, go to today">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+          <span>tracebook</span>
+        </a>
+        <p class="rail-caption">A practice log for Java + Codeforces</p>
+
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="#today" data-view-link="today"><span class="nav-index">01</span> Today</a>
+          <a href="#path" data-view-link="path"><span class="nav-index">02</span> 90-day path</a>
+          <a href="#guide" data-view-link="guide"><span class="nav-index">03</span> Field guide</a>
+          <a href="#weekly" data-view-link="weekly"><span class="nav-index">04</span> Weekly review</a>
+        </nav>
+
+        <div class="rail-bottom">
+          <div class="rail-rule"></div>
+          <p class="rail-prompt">Show your work.<br />Keep the lesson.</p>
+          <p class="local-storage-note"><span class="storage-dot" aria-hidden="true"></span> Saved in this browser</p>
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content" tabindex="-1">
+        <header class="mobile-header">
+          <a class="brand" href="#today" aria-label="Tracebook, go to today">
+            <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+            <span>tracebook</span>
+          </a>
+          <span class="mobile-edition">Java / CF 1300</span>
+        </header>
+
+        <div class="page-meta">
+          <p id="date-line" class="date-line">90 days · 7 Nov 2026 to 4 Feb 2027</p>
+          <p class="save-state"><span class="storage-dot" aria-hidden="true"></span><span id="save-state">Progress is saved on this device</span></p>
+        </div>
+
+        <div id="app-views" class="app-views">
+          <section id="today-view" class="app-view" aria-labelledby="today-heading"></section>
+          <section id="path-view" class="app-view" aria-labelledby="path-heading" hidden></section>
+          <section id="guide-view" class="app-view" aria-labelledby="guide-heading" hidden></section>
+          <section id="weekly-view" class="app-view" aria-labelledby="weekly-heading" hidden></section>
+        </div>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Main navigation">
+        <a href="#today" data-view-link="today">Today</a>
+        <a href="#path" data-view-link="path">90-day path</a>
+        <a href="#guide" data-view-link="guide">Field guide</a>
+        <a href="#weekly" data-view-link="weekly">Weekly review</a>
+      </nav>
+    </div>
+    <p id="live-message" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+    <noscript><p class="noscript-message">Tracebook needs JavaScript to save your daily progress in this browser.</p></noscript>
+  </body>
+</html>
