@@ -2,7 +2,17 @@
   "name": "tracebook-progress-sync",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "cf dev",
+    "build": "cf build",
+    "deploy": "cf deploy"
+  },
   "devDependencies": {
-    "cf": "^1.0.0-beta.13"
+    "@cloudflare/vite-plugin": "beta",
+    "cf": "^1.0.0-beta.13",
+    "vite": "latest"
+  },
+  "allowScripts": {
+    "workerd@1.20261104.1": true
   }
 }
