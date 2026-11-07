@@ -1,15 +1,13 @@
-name: Build Android APK
+name: Build Tracebook Android APK
 
 on:
   push:
-    branches: [main]
+    branches: [mobile-application]
     paths:
       - "app.js"
       - "index.html"
       - "styles.css"
-      - "package.json"
-      - "vite.config.js"
-      - "capacitor.config.json"
+      - "mobile-app/**"
       - ".github/workflows/android-apk.yml"
   workflow_dispatch:
 
@@ -18,11 +16,14 @@ permissions:
 
 jobs:
   build-apk:
-    name: Build Tracebook for Android
+    name: Package the mobile app
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: mobile-app
     steps:
-      - name: Check out Tracebook
+      - name: Check out Mobile Application branch
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -36,11 +37,17 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Install JavaScript dependencies
+      - name: Install mobile app dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build the website assets
+      - name: Bundle the website for Capacitor
         run: npm run build
+
+      - name: Verify the app script and styles were bundled
+        run: |
+          test -f dist/index.html
+          test -n "$(find dist/assets -maxdepth 1 -type f -name '*.js' -print -quit)"
+          test -n "$(find dist/assets -maxdepth 1 -type f -name '*.css' -print -quit)"
 
       - name: Create the Android project
         run: npx cap add android
@@ -51,13 +58,12 @@ jobs:
       - name: Build debug APK
         run: |
           chmod +x android/gradlew
-          cd android
-          ./gradlew assembleDebug
+          android/gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: tracebook-android-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: mobile-app/android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
