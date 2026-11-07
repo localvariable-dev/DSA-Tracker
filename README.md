@@ -33,11 +33,11 @@ R2 is accessed through a Worker, not directly from browser code. The `sync-worke
 
 1. The Worker is configured to use the private `dsa-progress` R2 bucket.
 2. `ALLOWED_ORIGIN` allows `https://localvariable-dev.github.io` and `https://kimick.in`. If you publish the site on another host, add its exact origin (scheme and host only, no path or trailing slash) as another comma-separated value.
-3. Create a private `.secrets.json` in `sync-worker/` with `{"SYNC_TOKEN":"a-long-random-secret"}`. Keep it private and out of source control.
+3. Create a private `.secrets.json` in `sync-worker/` with both `SYNC_TOKEN` and `OTTER_SYNC_TOKEN`. The owner token remains mapped to the existing progress file; the Otter token uses the `Otter/` prefix. Keep this file private and out of source control.
 4. From `sync-worker/`, run `npm install`, sign in with `cf auth login`, and deploy with `cf deploy --secrets-file .secrets.json`. The folder uses Cloudflare's Vite plugin as the `cf` build tool.
 5. In the app's Cloud sync panel, use the deployed Worker URL with `/api/progress` appended, and enter the same token.
 
-The page keeps that token in browser local storage, so use this only on a device and browser profile you trust. Cloudflare stores one progress snapshot at a fixed key in the R2 bucket. Do not put other data in that bucket under the same key.
+The owner token keeps the existing progress at `tracebook/progress-v1.json`. A separate `OTTER_SYNC_TOKEN` maps to `Otter/progress-v1.json`, so your friend can use the same site and Worker without sharing your progress. Add both values to the ignored `sync-worker/.secrets.json` and redeploy the Worker. Share only the Otter token with your friend. Each person should use their own device or browser profile because progress and connection settings are also saved locally in the browser.
 
 Closing a tab cannot guarantee a save: browsers may end the page before a request finishes. The current design therefore relies on **Sync now** for uploads and does not silently upload on close. A best-effort hidden-page save can be added later, but it can still be interrupted.
 
