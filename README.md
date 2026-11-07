@@ -54,9 +54,9 @@ The 1300 Codeforces rating is treated as a stretch target. Independent solves, u
 
 ## Android APK
 
-GitHub Actions builds a Tracebook Android debug APK on pushes to `main` that change the app, and can also be started manually from the Actions tab. The APK is uploaded as the `tracebook-android-debug` artifact for 30 days. Download the artifact ZIP from the workflow run and extract `app-debug.apk` to install it on Android. This workflow only builds an APK artifact; it does not replace the GitHub Pages site deployment.
+Mobile application work is isolated on the `mobile-application` branch. The existing `main` branch and live GitHub Pages website remain separate. GitHub Actions builds a Tracebook debug APK when app files change on `mobile-application`, or when you manually run **Build Tracebook Android APK** from the Actions tab. Download the `tracebook-android-debug` artifact ZIP from a successful run and extract `app-debug.apk`.
 
-To keep Android R2 sync working, the Worker CORS list includes Capacitor's `https://localhost` app origin. After pulling the latest repository changes, redeploy the Worker with the existing secret file:
+To keep R2 sync working inside the APK, the Worker must allow Capacitor's `https://localhost` origin. After pulling the latest branch, redeploy the Worker using your existing secret file:
 
 ```sh
 cd sync-worker
@@ -64,4 +64,4 @@ npm install
 cf deploy --secrets-file .secrets.json
 ```
 
-The APK built here is a debug build for direct installation. A Play Store release needs a signed release build and signing credentials.
+This debug APK is for direct installation. A Play Store release needs a signed release build and signing credentials.
