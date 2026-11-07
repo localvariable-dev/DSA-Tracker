@@ -16,8 +16,9 @@ function validState(value) {
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin");
-    const allowedOrigin = env.ALLOWED_ORIGIN || "";
-    const cors = origin && origin === allowedOrigin ? {
+    const allowedOrigins = (env.ALLOWED_ORIGIN || "").split(",").map((value) => value.trim()).filter(Boolean);
+    const originAllowed = origin && allowedOrigins.includes(origin);
+    const cors = originAllowed ? {
       "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, PUT, OPTIONS",
       "Access-Control-Allow-Headers": "Authorization, Content-Type",
@@ -25,7 +26,7 @@ export default {
       "Vary": "Origin",
     } : {};
 
-    if (origin && origin !== allowedOrigin) return json({ error: "Origin not allowed" }, 403);
+    if (origin && !originAllowed) return json({ error: "Origin not allowed" }, 403);
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
     if (new URL(request.url).pathname !== "/api/progress") return json({ error: "Not found" }, 404, cors);
     if (!env.PROGRESS || !env.SYNC_TOKEN) return json({ error: "Sync service is not configured" }, 503, cors);

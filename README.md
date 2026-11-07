@@ -32,7 +32,7 @@ The **Cloud sync** panel on the Weekly review page is opt-in. Save your Worker e
 R2 is accessed through a Worker, not directly from browser code. The `sync-worker/` folder contains the API endpoint and a Cloudflare CLI config. Before using it:
 
 1. The Worker is configured to use the private `dsa-progress` R2 bucket.
-2. `ALLOWED_ORIGIN` is set to `https://localvariable-dev.github.io`, based on the GitHub repository name. If you publish the site on a different host or custom domain, change it to that exact origin (no path or trailing slash).
+2. `ALLOWED_ORIGIN` allows `https://localvariable-dev.github.io` and `https://kimick.in`. If you publish the site on another host, add its exact origin (scheme and host only, no path or trailing slash) as another comma-separated value.
 3. Create a private `.secrets.json` in `sync-worker/` with `{"SYNC_TOKEN":"a-long-random-secret"}`. Keep it private and out of source control.
 4. From `sync-worker/`, run `npm install`, sign in with `cf auth login`, and deploy with `cf deploy --secrets-file .secrets.json`. The folder uses Cloudflare's Vite plugin as the `cf` build tool.
 5. In the app's Cloud sync panel, use the deployed Worker URL with `/api/progress` appended, and enter the same token.
